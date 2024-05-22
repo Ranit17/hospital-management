@@ -1,0 +1,78 @@
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Scanner;
+
+class Appointment {
+    private String doctorName;
+    private String patientName;
+    private String appointmentTime;
+
+    public Appointment(String doctorName, String patientName, String appointmentTime) {
+        this.doctorName = doctorName;
+        this.patientName = patientName;
+        this.appointmentTime = appointmentTime;
+    }
+
+    public String getDoctorName() {
+        return doctorName;
+    }
+
+    public String getPatientName() {
+        return patientName;
+    }
+
+    public String getAppointmentTime() {
+        return appointmentTime;
+    }
+
+    @Override
+    public String toString() {
+        return "Doctor Name: " + doctorName + "\nPatient Name: " + patientName + "\nAppointment Time: " + appointmentTime;
+    }
+}
+
+public class HospitalManagement {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        Map<String, Appointment> appointments = new HashMap<>();
+
+        while (true) {
+            System.out.println("Enter '1' to book an appointment");
+            System.out.println("Enter '2' to view appointments");
+            System.out.println("Enter '3' to exit");
+            int choice = scanner.nextInt();
+            scanner.nextLine(); // Consume newline
+
+            switch (choice) {
+                case 1:
+                    System.out.println("Enter doctor name:");
+                    String doctorName = scanner.nextLine();
+                    System.out.println("Enter patient name:");
+                    String patientName = scanner.nextLine();
+                    System.out.println("Enter appointment time:");
+                    String appointmentTime = scanner.nextLine();
+                    Appointment appointment = new Appointment(doctorName, patientName, appointmentTime);
+                    appointments.put(patientName, appointment);
+                    System.out.println("Appointment booked successfully!");
+                    break;
+                case 2:
+                    if (appointments.isEmpty()) {
+                        System.out.println("No appointments found.");
+                    } else {
+                        System.out.println("Appointments:");
+                        for (Appointment appointment : appointments.values()) {
+                            System.out.println(appointment);
+                        }
+                    }
+                    break;
+                case 3:
+                    System.out.println("Exiting...");
+                    System.exit(0);
+                    break;
+                default:
+                    System.out.println("Invalid choice. Please try again.");
+                    break;
+            }
+        }
+    }
+}
